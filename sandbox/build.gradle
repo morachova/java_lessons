@@ -1,3 +1,3 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = "ua.com.morachova.pft.MyFirstProgram"
+mainClassName = "ua.com.morachova.pft.sandbox.MyFirstProgram"
