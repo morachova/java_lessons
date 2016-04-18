@@ -1,4 +1,4 @@
-package ua.com.morachova.addressbook;
+package ua.com.morachova.addressbook.model;
 
 public class GroupData {
   private final String name;

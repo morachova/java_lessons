@@ -1,4 +1,4 @@
-package ua.com.morachova.addressbook;
+package ua.com.morachova.addressbook.model;
 
 public class ContactData {
   private final String firstname;
