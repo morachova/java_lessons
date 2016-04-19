@@ -25,11 +25,23 @@ public class ContactHelper extends BaseHelper {
     click(By.linkText("add new"));
   }
 
-  public void selectContact() {
+  public void selectContactToEdit() {
     click(By.xpath("(//img[@alt='Edit'])[1]"));
   }
 
   public void submitContactModification() {
     click(By.cssSelector("input[value=Update]:nth-child(1)"));
+  }
+
+  public void deleteSelectedContact() {
+    click(By.cssSelector("input[value=Delete]"));
+  }
+
+  public void selectContactToDelete() {
+    click(By.cssSelector("#maintable>tbody>tr:nth-child(2)>.center>input"));
+  }
+
+  public void approveContactDeletion() {
+    wd.switchTo().alert().accept();
   }
 }
