@@ -24,4 +24,12 @@ public class ContactHelper extends BaseHelper {
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
+
+  public void selectContact() {
+    click(By.xpath("(//img[@alt='Edit'])[1]"));
+  }
+
+  public void submitContactModification() {
+    click(By.cssSelector("input[value=Update]:nth-child(1)"));
+  }
 }
