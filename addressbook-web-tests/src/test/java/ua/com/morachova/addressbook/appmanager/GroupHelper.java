@@ -1,12 +1,13 @@
 package ua.com.morachova.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ua.com.morachova.addressbook.model.GroupData;
 
 public class GroupHelper extends BaseHelper {
 
-  public GroupHelper(FirefoxDriver wd) {
+  public GroupHelper(WebDriver wd) {
     super(wd);
   }
 
