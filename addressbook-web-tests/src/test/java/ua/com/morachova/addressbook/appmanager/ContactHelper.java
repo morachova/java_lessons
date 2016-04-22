@@ -43,15 +43,33 @@ public class ContactHelper extends BaseHelper {
     click(By.cssSelector("input[value=Update]:nth-child(1)"));
   }
 
+  public void gotoHomePage() {
+    if (isElementPresent(By.id("maintable"))){
+      return;
+    }
+    click(By.linkText("home"));
+  }
+
   public void deleteSelectedContact() {
     click(By.cssSelector("input[value=Delete]"));
   }
 
   public void selectContactToDelete() {
-    click(By.cssSelector("#maintable>tbody>tr:nth-child(2)>.center>input"));
+    click(By.cssSelector("#maintable tr:nth-child(2) input"));
   }
 
   public void approveContactDeletion() {
     wd.switchTo().alert().accept();
+  }
+
+  public void createContact(ContactData contact, boolean creation) {
+    initContactCreation();
+    fillContactForm(new ContactData("test1", null, "kievcity", null, "name1"), true);
+    submitContactCreation();
+    gotoHomePage();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.cssSelector("#maintable tr:nth-child(2) input"));
   }
 }
