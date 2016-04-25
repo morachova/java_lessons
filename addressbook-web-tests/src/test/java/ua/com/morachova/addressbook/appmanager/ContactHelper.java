@@ -62,9 +62,9 @@ public class ContactHelper extends BaseHelper {
     wd.switchTo().alert().accept();
   }
 
-  public void createContact(ContactData contact, boolean creation) {
+  public void createContact(ContactData contact, boolean creation){
     initContactCreation();
-    fillContactForm(new ContactData("test1", null, "kievcity", null, "name1"), true);
+    fillContactForm(contact, creation);
     submitContactCreation();
     gotoHomePage();
   }
