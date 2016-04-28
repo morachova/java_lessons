@@ -22,7 +22,7 @@ public class ContactModificationTests extends TestBase{
     app.getContactHelper().fillContactForm(new ContactData("test1", "testing1", "kievcity", "test1.testing1@mail.net", null), false);
     app.getContactHelper().submitContactModification();
 
-    ////return to HomePage and check size
+    //return to HomePage and check size
     app.getContactHelper().gotoHomePage();
     int after = app.getContactHelper().getContactCount();
     Assert.assertEquals(after, before);

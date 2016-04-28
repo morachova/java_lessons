@@ -15,8 +15,7 @@ public class ContactCreationTests extends TestBase {
     //Create contact
     app.getContactHelper().createContact(new ContactData("test1", null, "kievcity", null, "name1"), true);
 
-    //return to HomePage and check size
-    app.getContactHelper().gotoHomePage();
+    //Check size after creation
     int after = app.getContactHelper().getContactCount();
     Assert.assertEquals(after, before + 1);
   }
