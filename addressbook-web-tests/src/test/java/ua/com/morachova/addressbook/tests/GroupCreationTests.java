@@ -4,19 +4,21 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.GroupData;
 
+import java.util.List;
+
 public class GroupCreationTests extends TestBase {
 
   @Test
   public void testGroupCreation() {
-    //Check size of Group elements before creation
+    //Check size of Group List before creation
     app.getNavigationHelper().gotoGroupPage();
-    int before = app.getGroupHelper().getGroupCount();
+    List<GroupData> before = app.getGroupHelper().getGroupList();
 
     //Group creation
     app.getGroupHelper().createGroup(new GroupData("name1", null, null));
 
     //Check size after creation
-    int after = app.getGroupHelper().getGroupCount();
-    Assert.assertEquals(after, before + 1);
+    List<GroupData> after = app.getGroupHelper().getGroupList();
+    Assert.assertEquals(after.size(), before.size() + 1);
   }
 }
