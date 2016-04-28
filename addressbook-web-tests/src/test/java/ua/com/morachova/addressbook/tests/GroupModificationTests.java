@@ -18,8 +18,8 @@ public class GroupModificationTests extends TestBase{
       app.getGroupHelper().createGroup(new GroupData("name1", null, null));
     }
 
-    //Modification of selected group
-    app.getGroupHelper().selectGroup();
+    //Modification of selected (last) group
+    app.getGroupHelper().selectGroup(before - 1);
     app.getGroupHelper().initGroupModification();
     app.getGroupHelper().fillGroupForm(new GroupData("name1", "header1", "footer1"));
     app.getGroupHelper().submitGroupModification();
