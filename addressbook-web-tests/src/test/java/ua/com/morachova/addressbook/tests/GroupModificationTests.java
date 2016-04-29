@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class GroupModificationTests extends TestBase{
@@ -25,12 +26,18 @@ public class GroupModificationTests extends TestBase{
     //Modification of selected (last) group
     app.getGroupHelper().selectGroup(before.size() - 1);
     app.getGroupHelper().initGroupModification();
-    app.getGroupHelper().fillGroupForm(new GroupData("name1", "header1", "footer1"));
+    GroupData group = new GroupData(before.get(before.size() - 1).getId(), "name1", "header1", "footer1");
+    app.getGroupHelper().fillGroupForm(group);
     app.getGroupHelper().submitGroupModification();
 
     //return to GroupPage and check List size
     app.getGroupHelper().returnToGroupPage();
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size());
+
+    //check groups after modification
+    before.remove(before.size() - 1);
+    before.add(group);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 }
