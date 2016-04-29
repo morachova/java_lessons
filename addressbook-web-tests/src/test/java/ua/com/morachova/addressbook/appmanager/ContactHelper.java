@@ -87,7 +87,7 @@ public class ContactHelper extends BaseHelper {
 
   public void addNewContactIfEmpty() {
     if (! isThereAContact()){
-      createContact(new ContactData("test1", "testing", "kievcity", null, "name1"));
+      createContact(new ContactData("Newtest1", "Newtesting", "Newkievcity", null, "name1"));
     }
   }
 
