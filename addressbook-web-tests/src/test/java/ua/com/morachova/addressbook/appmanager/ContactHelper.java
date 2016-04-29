@@ -22,17 +22,28 @@ public class ContactHelper extends BaseHelper {
     click(By.name("submit"));
   }
 
-  public void fillContactForm(ContactData contactData, boolean creation) {
+  private void fillBaseContactForm(ContactData contactData) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
     type(By.name("address"), contactData.getAddress());
     type(By.name("email"), contactData.getEmail());
+  }
 
-    if (creation){
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
+  private void fillCreationContactForm(ContactData contactData) {
+    fillBaseContactForm(contactData);
+    new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+  }
+
+  public void fillModificationContactForm(ContactData contactData) {
+    fillBaseContactForm(contactData);
+    Assert.assertFalse(isElementPresent(By.name("new_group")));
+  }
+
+  public void createContact(ContactData contact){
+    initContactCreation();
+    fillCreationContactForm(contact);
+    submitContactCreation();
+    gotoHomePage();
   }
 
   public void initContactCreation() {
@@ -66,19 +77,18 @@ public class ContactHelper extends BaseHelper {
     wd.switchTo().alert().accept();
   }
 
-  public void createContact(ContactData contact, boolean creation){
-    initContactCreation();
-    fillContactForm(contact, creation);
-    submitContactCreation();
-    gotoHomePage();
-  }
-
   public boolean isThereAContact() {
     return isElementPresent(By.cssSelector("#maintable tr:nth-child(2) input"));
   }
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public void addNewContactIfEmpty() {
+    if (! isThereAContact()){
+      createContact(new ContactData("test1", "testing", "kievcity", null, "name1"));
+    }
   }
 
   public List<ContactData> getContactList() {

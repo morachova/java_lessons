@@ -14,9 +14,7 @@ public class ContactDeletionTests extends TestBase{
     app.getContactHelper().gotoHomePage();
 
     //In case there are no contacts - create one
-    if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData("test1", "testing", "kievcity", null, "name1"), true);
-    }
+    app.getContactHelper().addNewContactIfEmpty();
 
     //Check size of contact List
     List<ContactData> before = app.getContactHelper().getContactList();

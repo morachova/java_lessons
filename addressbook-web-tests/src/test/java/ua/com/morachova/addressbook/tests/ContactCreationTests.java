@@ -9,6 +9,8 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
+  ContactData contact = new ContactData("test1", "testing", "kievcity", null, "name1");
+
   @Test
   public void testContactCreation() {
     //Check size of Contact elements before creation
@@ -16,8 +18,7 @@ public class ContactCreationTests extends TestBase {
     List<ContactData> before = app.getContactHelper().getContactList();
 
     //Create contact
-    ContactData contact = new ContactData("test1", "testing", "kievcity", null, "name1");
-    app.getContactHelper().createContact(contact, true);
+    app.getContactHelper().createContact(contact);
 
     //Check size after creation
     List<ContactData> after = app.getContactHelper().getContactList();

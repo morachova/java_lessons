@@ -15,9 +15,7 @@ public class ContactModificationTests extends TestBase{
     app.getContactHelper().gotoHomePage();
 
     //In case there are no contacts - create one
-    if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData("test1", "testing", "kievcity", null, "name1"), true);
-    }
+    app.getContactHelper().addNewContactIfEmpty();
 
     //Check size of contact List
     List<ContactData> before = app.getContactHelper().getContactList();
@@ -25,7 +23,7 @@ public class ContactModificationTests extends TestBase{
     //Modification of selected contact
     app.getContactHelper().selectContactToEdit(before.size() - 1);
     ContactData contact = new ContactData(before.get(before.size()-1).getId(), "test2", "testing2", null, null, null);
-    app.getContactHelper().fillContactForm(contact, false);
+    app.getContactHelper().fillModificationContactForm(contact);
     app.getContactHelper().submitContactModification();
 
     //return to HomePage and check size
