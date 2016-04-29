@@ -16,7 +16,7 @@ public class ContactCreationTests extends TestBase {
     List<ContactData> before = app.getContactHelper().getContactList();
 
     //Create contact
-    ContactData contact = new ContactData("test1", null, "kievcity", null, "name1");
+    ContactData contact = new ContactData("test1", "testing", "kievcity", null, "name1");
     app.getContactHelper().createContact(contact, true);
 
     //Check size after creation
