@@ -1,6 +1,7 @@
 package ua.com.morachova.addressbook.model;
 
 public class ContactData {
+  private final String id;
   private final String firstname;
   private final String lastname;
   private final String address;
@@ -9,18 +10,33 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "firstname='" + firstname + '\'' +
+            "id='" + id + '\'' +
+            ", firstname='" + firstname + '\'' +
             '}';
   }
 
   private String group;
 
-  public ContactData(String firstname, String lastname, String address, String email, String group) {
+  public ContactData(String id, String firstname, String lastname, String address, String email, String group) {
+    this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
     this.address = address;
     this.email = email;
     this.group = group;
+  }
+
+  public ContactData(String firstname, String lastname, String address, String email, String group) {
+    this.id = null;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.address = address;
+    this.email = email;
+    this.group = group;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public String getFirstname() {
@@ -50,13 +66,16 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
+    if (id != null ? !id.equals(that.id) : that.id != null) return false;
     return firstname != null ? firstname.equals(that.firstname) : that.firstname == null;
 
   }
 
   @Override
   public int hashCode() {
-    return firstname != null ? firstname.hashCode() : 0;
+    int result = id != null ? id.hashCode() : 0;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+    return result;
   }
 }
 
