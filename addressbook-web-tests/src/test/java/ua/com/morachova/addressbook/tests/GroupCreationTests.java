@@ -23,7 +23,7 @@ public class GroupCreationTests extends TestBase {
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    //Find max id from existing
+    //Find max id from existing Java 7
     int max = 0;
     for (GroupData g : after){
       if (g.getId() > max) {
@@ -31,6 +31,10 @@ public class GroupCreationTests extends TestBase {
       }
     }
     group.setId(max);
+
+    /*Java 8 compare lambda method
+    group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+     */
 
     //Check groups after creation
     before.add(group);
