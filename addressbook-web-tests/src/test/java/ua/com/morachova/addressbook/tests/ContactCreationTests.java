@@ -36,6 +36,17 @@ public class ContactCreationTests extends TestBase {
     //check contact after creation
     before.add(contact);
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+
+    /*Java 8 compare lambda method
+    contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+    */
+
+    /* Lambda sorting Java 8
+    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
+    */
   }
 }
 
