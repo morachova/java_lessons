@@ -21,7 +21,8 @@ public class ContactModificationTests extends TestBase{
     //Check size of contact List
     List<ContactData> before = app.contact().list();
     int index = before.size() - 1;
-    ContactData contact = new ContactData(before.get(index).getId(), "test2", "testing2", null, null, null);
+    ContactData contact = new ContactData()
+            .withId(before.get(index).getId()).withFirstname("test2").withLastname("testing2");
 
     //Modification of selected contact
     app.contact().modify(index, contact);

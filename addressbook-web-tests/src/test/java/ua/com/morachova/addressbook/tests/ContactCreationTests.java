@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
-  
+
   @Test
   public void testContactCreation() {
     //Check size of Contact elements before creation
@@ -16,7 +16,9 @@ public class ContactCreationTests extends TestBase {
     List<ContactData> before = app.contact().list();
 
     //Create contact
-    ContactData contact = new ContactData("test1", "testing", "kievcity", null, "name1");
+    ContactData contact = new ContactData()
+            .withFirstname("test1").withLastname("testing")
+            .withAddress("kievcity").withGroup("name1").withEmail(null);
     app.contact().createContact(contact);
 
     //Check size after creation
@@ -30,14 +32,15 @@ public class ContactCreationTests extends TestBase {
         max = c.getId();
       }
     }
-    contact.setId(max);
+    //set max id
+    contact.withId(max);
 
     //check contact after creation
     before.add(contact);
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
     /*Java 8 compare lambda method
-    contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+    contact.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
     */
 
     /* Lambda sorting Java 8

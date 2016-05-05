@@ -101,7 +101,7 @@ public class ContactHelper extends BaseHelper {
 
   public void addNewContactIfEmpty() {
     if (! isThereAContact()){
-      createContact(new ContactData("Newtest1", "Newtesting", "Newkievcity", null, "name1"));
+      createContact(new ContactData().withFirstname("Newtest1").withLastname("Newtesting").withAddress("Newkievcity").withGroup("name1"));
     }
   }
 
@@ -112,8 +112,7 @@ public class ContactHelper extends BaseHelper {
       String lastName = element.findElement(By.cssSelector("[name=entry] td:nth-child(2)")).getText();
       String firstName = element.findElement(By.cssSelector("[name=entry] td:nth-child(3)")).getText();
       int id = Integer.parseInt(element.findElement(By.cssSelector(".center>input")).getAttribute("id"));
-      ContactData contact = new ContactData(id, firstName, lastName, null, null, null);
-      contacts.add(contact);
+      contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
     }
     return contacts;
   }

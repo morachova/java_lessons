@@ -22,7 +22,8 @@ public class GroupModificationTests extends TestBase{
     //Check size of group elements in List
     List<GroupData> before = app.group().list();
     int index = before.size() - 1;
-    GroupData group = new GroupData(before.get(index).getId(), "name1", "header1", "footer1");
+    GroupData group = new GroupData()
+            .withId(before.get(index).getId()).withName("name1").withFooter("footer1").withHeader("header1");
 
     //Modification of selected group
     app.group().modify(index, group);

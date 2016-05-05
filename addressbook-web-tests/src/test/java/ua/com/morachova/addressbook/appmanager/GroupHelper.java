@@ -84,15 +84,14 @@ public class GroupHelper extends BaseHelper {
     for (WebElement element : elements){
       String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      GroupData group = new GroupData(id, name, null, null);
-      groups.add(group);
+      groups.add(new GroupData().withId(id).withName(name));
     }
     return groups;
   }
 
   public void addNewGroupIfEmpty() {
     if (list().size() == 0){
-      create(new GroupData("name1", null, null));
+      create(new GroupData().withName("name1"));
     }
   }
 }

@@ -16,7 +16,7 @@ public class GroupCreationTests extends TestBase {
     List<GroupData> before = app.group().list();
 
     //Group creation
-    GroupData group = new GroupData("name1", null, null);
+    GroupData group = new GroupData().withName("name1");
     app.group().create(group);
 
     //Check size after creation
@@ -30,7 +30,8 @@ public class GroupCreationTests extends TestBase {
         max = g.getId();
       }
     }
-    group.setId(max);
+    //set max id
+    group.withId(max);
 
     //Check groups after creation
     before.add(group);
@@ -38,7 +39,7 @@ public class GroupCreationTests extends TestBase {
 
 
     /*Java 8 compare lambda method
-    group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+    group.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
      */
 
     /* Lambda sorting Java 8
