@@ -3,7 +3,6 @@ package ua.com.morachova.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ua.com.morachova.addressbook.model.GroupData;
 
 import java.util.ArrayList;
@@ -50,18 +49,24 @@ public class GroupHelper extends BaseHelper {
   }
 
 
-  public void createGroup(GroupData group) {
+  public void create(GroupData group) {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupCreation();
     returnToGroupPage();
   }
 
-  public void modifyGroup(int index, GroupData group) {
+  public void modify(int index, GroupData group) {
     selectGroup(index);
     initGroupModification();
     fillGroupForm(group);
     submitGroupModification();
+    returnToGroupPage();
+  }
+
+  public void delete(int index) {
+    selectGroup(index);
+    deleteSelectedGroups();
     returnToGroupPage();
   }
 
@@ -73,7 +78,7 @@ public class GroupHelper extends BaseHelper {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<GroupData> getGroupList() {
+  public List<GroupData> list() {
     List<GroupData> groups = new ArrayList<GroupData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements){
@@ -86,8 +91,8 @@ public class GroupHelper extends BaseHelper {
   }
 
   public void addNewGroupIfEmpty() {
-    if (! isThereAGroup()){
-      createGroup(new GroupData("name1", null, null));
+    if (list().size() == 0){
+      create(new GroupData("name1", null, null));
     }
   }
 }

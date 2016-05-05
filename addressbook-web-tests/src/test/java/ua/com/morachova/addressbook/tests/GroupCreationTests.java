@@ -12,15 +12,15 @@ public class GroupCreationTests extends TestBase {
   @Test
   public void testGroupCreation() {
     //Check size of Group List before creation
-    app.getNavigationHelper().gotoGroupPage();
-    List<GroupData> before = app.getGroupHelper().getGroupList();
+    app.goTo().groupPage();
+    List<GroupData> before = app.group().list();
 
     //Group creation
     GroupData group = new GroupData("name1", null, null);
-    app.getGroupHelper().createGroup(group);
+    app.group().create(group);
 
     //Check size after creation
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    List<GroupData> after = app.group().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     //Find max id from existing Java 7

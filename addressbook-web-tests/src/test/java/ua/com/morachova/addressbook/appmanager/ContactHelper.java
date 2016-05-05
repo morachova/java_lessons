@@ -46,10 +46,17 @@ public class ContactHelper extends BaseHelper {
     gotoHomePage();
   }
 
-  public void modifyContact(List<ContactData> before, ContactData contact) {
-    selectContactToEdit(before.size() - 1);
+  public void modify(int index, ContactData contact) {
+    selectContactToEdit(index);
     fillModificationContactForm(contact);
     submitContactModification();
+    gotoHomePage();
+  }
+
+  public void delete(int index) {
+    selectContactToDelete(index);
+    deleteSelectedContact();
+    approveContactDeletion();
     gotoHomePage();
   }
 
@@ -98,7 +105,7 @@ public class ContactHelper extends BaseHelper {
     }
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements){
