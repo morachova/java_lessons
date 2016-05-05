@@ -1,6 +1,7 @@
 package ua.com.morachova.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.GroupData;
 
@@ -8,15 +9,14 @@ import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.getNavigationHelper().gotoGroupPage();
+    app.getGroupHelper().addNewGroupIfEmpty();
+  }
+
   @Test
   public void testGroupDeletion() {
-    //Start page
-    app.getNavigationHelper().gotoGroupPage();
-
-    //In case there are no groups - create one
-    if (! app.getGroupHelper().isThereAGroup()){
-      app.getGroupHelper().createGroup(new GroupData("name1", null, null));
-    }
 
     //Check size of group elements in List
     List<GroupData> before = app.getGroupHelper().getGroupList();

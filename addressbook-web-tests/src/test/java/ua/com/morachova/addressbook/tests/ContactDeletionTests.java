@@ -1,6 +1,7 @@
 package ua.com.morachova.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.ContactData;
 
@@ -8,14 +9,14 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase{
 
+  @BeforeMethod
+  public void ensurePreconditions(){
+    app.getContactHelper().gotoHomePage();
+    app.getContactHelper().addNewContactIfEmpty();
+  }
+
   @Test
   public void testContactDeletion(){
-    //Start page
-    app.getContactHelper().gotoHomePage();
-
-    //In case there are no contacts - create one
-    app.getContactHelper().addNewContactIfEmpty();
-
     //Check size of contact List
     List<ContactData> before = app.getContactHelper().getContactList();
 

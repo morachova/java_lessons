@@ -1,6 +1,7 @@
 package ua.com.morachova.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.ContactData;
 
@@ -9,25 +10,24 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase{
 
+  @BeforeMethod
+  public void ensurePreconditions(){
+    app.getContactHelper().gotoHomePage();
+    app.getContactHelper().addNewContactIfEmpty();
+  }
+
   @Test
   public void testContactModification() {
-    //Start page
-    app.getContactHelper().gotoHomePage();
 
-    //In case there are no contacts - create one
-    app.getContactHelper().addNewContactIfEmpty();
 
     //Check size of contact List
     List<ContactData> before = app.getContactHelper().getContactList();
+    ContactData contact = new ContactData(before.get(before.size()-1).getId(), "test2", "testing2", null, null, null);
 
     //Modification of selected contact
-    app.getContactHelper().selectContactToEdit(before.size() - 1);
-    ContactData contact = new ContactData(before.get(before.size()-1).getId(), "test2", "testing2", null, null, null);
-    app.getContactHelper().fillModificationContactForm(contact);
-    app.getContactHelper().submitContactModification();
+    app.getContactHelper().modifyContact(before, contact);
 
-    //return to HomePage and check size
-    app.getContactHelper().gotoHomePage();
+    //check size
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size());
 
@@ -43,4 +43,6 @@ public class ContactModificationTests extends TestBase{
     Assert.assertEquals(before, after);
     */
   }
+
+
 }
