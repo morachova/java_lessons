@@ -6,9 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class GroupModificationTests extends TestBase{
 
@@ -21,25 +19,21 @@ public class GroupModificationTests extends TestBase{
   @Test
   public void testGroupModification(){
     //Check size of group elements in List
-    List<GroupData> before = app.group().list();
-    int index = before.size() - 1;
+    Set<GroupData> before = app.group().all();
+    GroupData modifiedGroup = before.iterator().next();
     GroupData group = new GroupData()
-            .withId(before.get(index).getId()).withName("name1").withFooter("footer1").withHeader("header1");
+            .withId(modifiedGroup.getId()).withName("name1").withFooter("footer1").withHeader("header1");
 
     //Modification of selected group
-    app.group().modify(index, group);
+    app.group().modify(group);
 
     //check List size
-    List<GroupData> after = app.group().list();
+    Set<GroupData> after = app.group().all();
     Assert.assertEquals(after.size(), before.size());
 
     //check groups after modification
-    before.remove(index);
+    before.remove(modifiedGroup);
     before.add(group);
-
-    Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-    before.sort(byId);
-    after.sort(byId);
     Assert.assertEquals(before, after);
   }
 
