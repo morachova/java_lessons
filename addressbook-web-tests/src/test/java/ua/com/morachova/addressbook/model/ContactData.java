@@ -1,7 +1,7 @@
 package ua.com.morachova.addressbook.model;
 
 public class ContactData {
-  private int id = 0;
+  private int id = Integer.MAX_VALUE;
   private String firstname;
   private String lastname;
   private String address;
@@ -91,8 +91,5 @@ public class ContactData {
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
   }
-
-
-
 }
 

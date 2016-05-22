@@ -4,7 +4,7 @@ public class GroupData {
   private String name;
   private String header;
   private String footer;
-  private int id = 0;
+  private int id = Integer.MAX_VALUE;
 
   public int getId() {
     return id;
@@ -68,5 +68,4 @@ public class GroupData {
     result = 31 * result + id;
     return result;
   }
-
 }
