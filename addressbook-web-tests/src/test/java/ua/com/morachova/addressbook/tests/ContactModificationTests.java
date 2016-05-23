@@ -5,9 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.ContactData;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class ContactModificationTests extends TestBase{
 
@@ -20,25 +18,21 @@ public class ContactModificationTests extends TestBase{
   @Test
   public void testContactModification() {
     //Check size of contact List
-    List<ContactData> before = app.contact().list();
-    int index = before.size() - 1;
+    Set<ContactData> before = app.contact().all();
+    ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
-            .withId(before.get(index).getId()).withFirstname("test2").withLastname("testing2");
+            .withId(modifiedContact.getId()).withFirstname("test123").withLastname("testing269");
 
     //Modification of selected contact
-    app.contact().modify(index, contact);
+    app.contact().modify(contact);
 
     //check size
-    List<ContactData> after = app.contact().list();
+    Set<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), before.size());
 
     //check contacts after modification
-    before.remove(index);
+    before.remove(modifiedContact);
     before.add(contact);
-
-    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-    before.sort(byId);
-    after.sort(byId);
     Assert.assertEquals(before, after);
   }
 }
