@@ -1,12 +1,13 @@
 package ua.com.morachova.addressbook.tests;
 
-
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.GroupData;
+import ua.com.morachova.addressbook.model.Groups;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupModificationTests extends TestBase{
 
@@ -19,7 +20,7 @@ public class GroupModificationTests extends TestBase{
   @Test
   public void testGroupModification(){
     //Check size of group elements in List
-    Set<GroupData> before = app.group().all();
+    Groups before = app.group().all();
     GroupData modifiedGroup = before.iterator().next();
     GroupData group = new GroupData()
             .withId(modifiedGroup.getId()).withName("name1").withFooter("footer1").withHeader("header1");
@@ -28,13 +29,11 @@ public class GroupModificationTests extends TestBase{
     app.group().modify(group);
 
     //check List size
-    Set<GroupData> after = app.group().all();
-    Assert.assertEquals(after.size(), before.size());
+    Groups after = app.group().all();
+    assertEquals(after.size(), before.size());
 
     //check groups after modification
-    before.remove(modifiedGroup);
-    before.add(group);
-    Assert.assertEquals(before, after);
+    assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
   }
 
 

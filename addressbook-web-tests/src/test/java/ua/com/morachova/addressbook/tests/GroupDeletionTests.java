@@ -1,11 +1,13 @@
 package ua.com.morachova.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.GroupData;
+import ua.com.morachova.addressbook.model.Groups;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupDeletionTests extends TestBase {
 
@@ -18,20 +20,17 @@ public class GroupDeletionTests extends TestBase {
   @Test
   public void testGroupDeletion() {
     //Check size of group elements in List
-    Set<GroupData> before = app.group().all();
+    Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
 
     //Deletion of selected (last) group
     app.group().delete(deletedGroup);
 
     //check size
-    Set<GroupData> after = app.group().all();
-    Assert.assertEquals(after.size(), before.size() - 1);
+    Groups after = app.group().all();
+    assertEquals(after.size(), before.size() - 1);
 
     //check groups after deletion
-    before.remove(deletedGroup);
-    Assert.assertEquals(before, after);
+    assertThat(after, equalTo(before.without(deletedGroup)));
   }
-
-
 }
