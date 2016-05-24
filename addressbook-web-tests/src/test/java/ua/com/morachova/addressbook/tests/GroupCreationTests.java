@@ -4,7 +4,6 @@ import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.GroupData;
 import ua.com.morachova.addressbook.model.Groups;
 
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 

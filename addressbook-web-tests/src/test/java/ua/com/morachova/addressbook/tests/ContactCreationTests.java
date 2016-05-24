@@ -1,9 +1,15 @@
 package ua.com.morachova.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import ua.com.morachova.addressbook.model.Contacts;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.ContactData;
-import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
 
@@ -11,7 +17,7 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation() {
     //Check size of Contact elements before creation
     app.goTo().homePage();
-    Set<ContactData> before = app.contact().all();
+    Contacts before = app.contact().all();
 
     //Create contact
     ContactData contact = new ContactData()
@@ -20,13 +26,12 @@ public class ContactCreationTests extends TestBase {
     app.contact().createContact(contact);
 
     //Check size after creation
-    Set<ContactData> after = app.contact().all();
+    Contacts after = app.contact().all();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     //check contact after creation
-    contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
-    before.add(contact);
-    Assert.assertEquals(before, after);
+    assertThat(after, equalTo(
+            before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
   }
 }
 

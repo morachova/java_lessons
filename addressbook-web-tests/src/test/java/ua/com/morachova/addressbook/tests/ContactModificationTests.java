@@ -4,8 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ua.com.morachova.addressbook.model.ContactData;
+import ua.com.morachova.addressbook.model.Contacts;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactModificationTests extends TestBase{
 
@@ -18,7 +20,7 @@ public class ContactModificationTests extends TestBase{
   @Test
   public void testContactModification() {
     //Check size of contact List
-    Set<ContactData> before = app.contact().all();
+    Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
             .withId(modifiedContact.getId()).withFirstname("test123").withLastname("testing269");
@@ -27,12 +29,10 @@ public class ContactModificationTests extends TestBase{
     app.contact().modify(contact);
 
     //check size
-    Set<ContactData> after = app.contact().all();
+    Contacts after = app.contact().all();
     Assert.assertEquals(after.size(), before.size());
 
     //check contacts after modification
-    before.remove(modifiedContact);
-    before.add(contact);
-    Assert.assertEquals(before, after);
+    assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
   }
 }
