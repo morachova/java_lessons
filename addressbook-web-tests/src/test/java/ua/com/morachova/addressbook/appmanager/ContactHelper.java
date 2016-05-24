@@ -102,7 +102,7 @@ public class ContactHelper extends BaseHelper {
     return isElementPresent(By.cssSelector("#maintable tr:nth-child(2) input"));
   }
 
-  public int getContactCount() {
+  public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
 

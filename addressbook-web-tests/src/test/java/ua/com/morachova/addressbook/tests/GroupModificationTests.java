@@ -28,9 +28,9 @@ public class GroupModificationTests extends TestBase{
     //Modification of selected group
     app.group().modify(group);
 
-    //check List size
+    //check size
+    assertEquals(app.group().count(), before.size());
     Groups after = app.group().all();
-    assertEquals(after.size(), before.size());
 
     //check groups after modification
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));

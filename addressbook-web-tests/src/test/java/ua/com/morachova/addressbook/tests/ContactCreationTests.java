@@ -1,7 +1,5 @@
 package ua.com.morachova.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import ua.com.morachova.addressbook.model.Contacts;
 
 import org.testng.Assert;
@@ -25,9 +23,9 @@ public class ContactCreationTests extends TestBase {
             .withAddress("kievcity").withGroup("name1").withEmail(null);
     app.contact().createContact(contact);
 
-    //Check size after creation
+    //Check size
+    Assert.assertEquals(app.contact().count(), before.size() + 1);
     Contacts after = app.contact().all();
-    Assert.assertEquals(after.size(), before.size() + 1);
 
     //check contact after creation
     assertThat(after, equalTo(
